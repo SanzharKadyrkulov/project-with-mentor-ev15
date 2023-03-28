@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useProductContext } from "../contexts/ProductContext";
+import { Link } from "react-router-dom";
 
 function ProductCard({ item }) {
 	const { deleteProduct } = useProductContext();
@@ -38,7 +39,18 @@ function ProductCard({ item }) {
 					>
 						Delete
 					</Button>
-					<Button size="small">Learn More</Button>
+
+					<Button
+						component={Link}
+						to={`/edit/${item.id}`}
+						color="warning"
+						size="small"
+					>
+						Edit
+					</Button>
+					<Button component={Link} to={`/details/${item.id}`} size="small">
+						Learn More
+					</Button>
 				</CardActions>
 			</Card>
 		</Grid>

@@ -10,13 +10,15 @@ export function useProductContext() {
 
 const initState = {
 	products: [],
+	oneProduct: null,
 };
 
 function reducer(state, action) {
 	switch (action.type) {
 		case ACTIONS.products:
 			return { ...state, products: action.payload };
-
+		case ACTIONS.oneProduct:
+			return { ...state, oneProduct: action.payload };
 		default:
 			return state;
 	}
@@ -30,6 +32,18 @@ function ProductContext({ children }) {
 			const { data } = await axios.get(API);
 			dispatch({
 				type: ACTIONS.products,
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	async function getOneProduct(id) {
+		try {
+			const { data } = await axios.get(`${API}/${id}`);
+			dispatch({
+				type: ACTIONS.oneProduct,
 				payload: data,
 			});
 		} catch (error) {
@@ -55,11 +69,23 @@ function ProductContext({ children }) {
 		}
 	}
 
+	async function editProduct(id, prodEdit) {
+		try {
+			await axios.patch(`${API}/${id}`, prodEdit);
+			getProducts();
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
 	const value = {
 		products: state.products,
+		oneProduct: state.oneProduct,
 		getProducts,
+		getOneProduct,
 		addProduct,
 		deleteProduct,
+		editProduct,
 	};
 	return (
 		<productContext.Provider value={value}>{children}</productContext.Provider>
