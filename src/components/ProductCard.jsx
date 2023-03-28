@@ -15,7 +15,7 @@ function ProductCard({ item }) {
 
 	return (
 		<Grid item md={4} sm={6} xs={12}>
-			<Card sx={{ maxWidth: 345 }}>
+			<Card>
 				<CardMedia
 					component="img"
 					alt="green iguana"

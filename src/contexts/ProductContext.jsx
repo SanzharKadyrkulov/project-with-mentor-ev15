@@ -26,21 +26,39 @@ function ProductContext({ children }) {
 	const [state, dispatch] = useReducer(reducer, initState);
 
 	async function getProducts() {
-		const { data } = await axios.get(API);
-		dispatch({
-			type: ACTIONS.products,
-			payload: data,
-		});
+		try {
+			const { data } = await axios.get(API);
+			dispatch({
+				type: ACTIONS.products,
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	async function addProduct(newProduct) {
+		try {
+			await axios.post(API, newProduct);
+			getProducts();
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	async function deleteProduct(id) {
-		await axios.delete(`${API}/${id}`);
-		getProducts();
+		try {
+			await axios.delete(`${API}/${id}`);
+			getProducts();
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	const value = {
 		products: state.products,
 		getProducts,
+		addProduct,
 		deleteProduct,
 	};
 	return (
