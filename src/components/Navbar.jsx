@@ -19,6 +19,10 @@ const pages = [
 		title: "Home",
 		link: "/",
 	},
+	{
+		title: "Add Product",
+		link: "/add",
+	},
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
