@@ -1,4 +1,11 @@
-import { Button, TextField } from "@mui/material";
+import {
+	Button,
+	FormControl,
+	InputLabel,
+	MenuItem,
+	Select,
+	TextField,
+} from "@mui/material";
 import React, { useState } from "react";
 import { useProductContext } from "../contexts/ProductContext";
 
@@ -77,13 +84,22 @@ function AddProductPage() {
 					label="Price"
 					variant="outlined"
 				/>
-				<TextField
-					value={formValue.category}
-					onChange={(e) => handleChange(e)}
-					name="category"
-					label="Category"
-					variant="outlined"
-				/>
+				<FormControl fullWidth>
+					<InputLabel id="demo-simple-select-label">Category</InputLabel>
+					<Select
+						labelId="demo-simple-select-label"
+						id="demo-simple-select"
+						value={formValue.category}
+						label="Category"
+						name="category"
+						onChange={(e) => handleChange(e)}
+					>
+						<MenuItem value={"men's clothing"}>Men</MenuItem>
+						<MenuItem value={"women's clothing"}>Women</MenuItem>
+						<MenuItem value={"jewelery"}>Jewelery</MenuItem>
+						<MenuItem value={"electronics"}>Electronics</MenuItem>
+					</Select>
+				</FormControl>
 				<TextField
 					value={formValue.image}
 					onChange={(e) => handleChange(e)}

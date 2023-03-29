@@ -205,12 +205,20 @@
       }
     },
     {
-      "title": "werty",
-      "description": "erwty",
-      "price": "esrdtfygj",
-      "category": "xfcghvj",
-      "image": "fxcgvhj",
-      "id": 21
+      "title": "qwerty",
+      "description": "weqrtyu",
+      "price": "sdfghj",
+      "category": "men's clothing",
+      "image": "sdfghjk",
+      "id": 22
+    },
+    {
+      "title": "sdftgyjh",
+      "description": "dgfhjk",
+      "price": "fghjk",
+      "category": "women's clothing",
+      "image": "fchgvjbknl;",
+      "id": 23
     }
   ]
 }
