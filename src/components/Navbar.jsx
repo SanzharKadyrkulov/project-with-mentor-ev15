@@ -13,6 +13,8 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { Badge } from "@mui/material";
 
 const pages = [
 	{
@@ -144,6 +146,16 @@ function Navbar() {
 					</Box>
 
 					<Box sx={{ flexGrow: 0 }}>
+						<IconButton
+							component={Link}
+							to="/cart"
+							size="large"
+							color="inherit"
+						>
+							<Badge badgeContent={5} color="error">
+								<ShoppingCartIcon />
+							</Badge>
+						</IconButton>
 						<Tooltip title="Open settings">
 							<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
 								<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />

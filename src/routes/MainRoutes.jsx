@@ -5,6 +5,7 @@ import HomePage from "../pages/HomePage";
 import AddProductPage from "../pages/AddProductPage";
 import EditProductPage from "../pages/EditProductPage";
 import ProductDetailsPage from "../pages/ProductDetailsPage";
+import CartPage from "../pages/CartPage";
 
 function MainRoutes() {
 	return (
@@ -14,6 +15,7 @@ function MainRoutes() {
 				<Route path="/add" element={<AddProductPage />} />
 				<Route path="/edit/:id" element={<EditProductPage />} />
 				<Route path="/details/:id" element={<ProductDetailsPage />} />
+				<Route path="/cart" element={<CartPage />} />
 			</Route>
 		</Routes>
 	);
