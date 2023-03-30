@@ -6,8 +6,8 @@ export function useCartContext() {
 	return useContext(cartContext);
 }
 
-function CartContext() {
-	return <div>CartContext</div>;
+function CartContext({ children }) {
+	const value = {};
+	return <cartContext.Provider value={value}>{children}</cartContext.Provider>;
 }
-
 export default CartContext;
