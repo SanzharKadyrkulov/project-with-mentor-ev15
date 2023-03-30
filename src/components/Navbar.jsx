@@ -15,6 +15,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Badge } from "@mui/material";
+import { useCartContext } from "../contexts/CartContext";
 
 const pages = [
 	{
@@ -29,6 +30,12 @@ const pages = [
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function Navbar() {
+	const { cartLength, getCart } = useCartContext();
+
+	React.useEffect(() => {
+		getCart();
+	}, []);
+
 	const [anchorElNav, setAnchorElNav] = React.useState(null);
 	const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -152,7 +159,7 @@ function Navbar() {
 							size="large"
 							color="inherit"
 						>
-							<Badge badgeContent={5} color="error">
+							<Badge badgeContent={cartLength} color="error">
 								<ShoppingCartIcon />
 							</Badge>
 						</IconButton>

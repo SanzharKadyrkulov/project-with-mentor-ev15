@@ -5,14 +5,20 @@ import {
 	CardContent,
 	CardMedia,
 	Grid,
+	IconButton,
 	Typography,
 } from "@mui/material";
 import React from "react";
 import { useProductContext } from "../contexts/ProductContext";
 import { Link } from "react-router-dom";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import RemoveShoppingCartOutlinedIcon from "@mui/icons-material/RemoveShoppingCartOutlined";
+import { useCartContext } from "../contexts/CartContext";
 
 function ProductCard({ item }) {
 	const { deleteProduct } = useProductContext();
+	const { addProductToCart, deleteProductFromCart, isAlreadyInCart } =
+		useCartContext();
 
 	return (
 		<Grid item md={4} sm={6} xs={12}>
@@ -51,6 +57,19 @@ function ProductCard({ item }) {
 					<Button component={Link} to={`/details/${item.id}`} size="small">
 						Learn More
 					</Button>
+
+					{isAlreadyInCart(item.id) ? (
+						<IconButton
+							onClick={() => deleteProductFromCart(item.id)}
+							color="error"
+						>
+							<RemoveShoppingCartOutlinedIcon />
+						</IconButton>
+					) : (
+						<IconButton onClick={() => addProductToCart(item)} color="primary">
+							<AddShoppingCartIcon />
+						</IconButton>
+					)}
 				</CardActions>
 			</Card>
 		</Grid>
