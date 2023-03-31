@@ -6,6 +6,7 @@ import AddProductPage from "../pages/AddProductPage";
 import EditProductPage from "../pages/EditProductPage";
 import ProductDetailsPage from "../pages/ProductDetailsPage";
 import CartPage from "../pages/CartPage";
+import SuccessPage from "../pages/SuccessPage";
 
 function MainRoutes() {
 	return (
@@ -17,6 +18,8 @@ function MainRoutes() {
 				<Route path="/details/:id" element={<ProductDetailsPage />} />
 				<Route path="/cart" element={<CartPage />} />
 			</Route>
+
+			<Route path="/success" element={<SuccessPage />} />
 		</Routes>
 	);
 }

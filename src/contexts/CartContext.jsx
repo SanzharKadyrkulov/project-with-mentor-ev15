@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useReducer } from "react";
 import { ACTIONS } from "../utils/consts";
+import { notify } from "../components/Toastify";
 
 const cartContext = createContext();
 
@@ -65,6 +66,7 @@ function CartContext({ children }) {
 
 		localStorage.setItem("cart", JSON.stringify(data));
 		getCart();
+		notify("Successfully added to cart");
 	}
 
 	function deleteProductFromCart(id) {
@@ -78,6 +80,7 @@ function CartContext({ children }) {
 
 		localStorage.setItem("cart", JSON.stringify(data));
 		getCart();
+		notify("Successfully removed from cart");
 	}
 
 	function isAlreadyInCart(id) {
@@ -87,6 +90,49 @@ function CartContext({ children }) {
 		return isInCart;
 	}
 
+	function plusCount(id) {
+		const data = getDataFromLS();
+		data.products = data.products.map((item) => {
+			if (item.id === id) {
+				item.count += 1;
+				item.subPrice += +item.price;
+			}
+			return item;
+		});
+
+		data.totalPrice = data.products.reduce(
+			(acc, item) => acc + item.subPrice,
+			0
+		);
+
+		localStorage.setItem("cart", JSON.stringify(data));
+		getCart();
+	}
+
+	function minusCount(id) {
+		const data = getDataFromLS();
+		data.products = data.products.map((item) => {
+			if (item.id === id) {
+				item.count -= 1;
+				item.subPrice -= +item.price;
+			}
+			return item;
+		});
+
+		data.totalPrice = data.products.reduce(
+			(acc, item) => acc + item.subPrice,
+			0
+		);
+
+		localStorage.setItem("cart", JSON.stringify(data));
+		getCart();
+	}
+
+	function clearCart() {
+		localStorage.removeItem("cart");
+		getCart();
+	}
+
 	const value = {
 		cart: state.cart,
 		cartLength: state.cartLength,
@@ -94,6 +140,9 @@ function CartContext({ children }) {
 		addProductToCart,
 		deleteProductFromCart,
 		isAlreadyInCart,
+		plusCount,
+		minusCount,
+		clearCart,
 	};
 	return <cartContext.Provider value={value}>{children}</cartContext.Provider>;
 }
