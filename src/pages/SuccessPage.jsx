@@ -23,7 +23,7 @@ function SuccessPage() {
 				justifyContent: "center",
 			}}
 		>
-			<h1 style={{ color: "green" }}>Thank you for your order!</h1>
+			<h1 style={{ color: "blue" }}>Thank you for your order!</h1>
 		</div>
 	);
 }
