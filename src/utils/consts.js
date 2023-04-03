@@ -5,7 +5,8 @@ export const ACTIONS = {
 	oneProduct: "oneProduct",
 	pageTotalCount: "pageTotalCount",
 	cart: "cart",
-	cartLength: 'cartLength'
+	cartLength: "cartLength",
+	user: "user",
 };
 
 export const LIMIT = 6;
