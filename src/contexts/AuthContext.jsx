@@ -1,6 +1,8 @@
 import React, { createContext, useReducer } from "react";
 import { ACTIONS } from "../utils/consts";
 import { useContext } from "react";
+import { auth } from "../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const authContext = createContext();
 
@@ -25,11 +27,18 @@ function reducer(state, action) {
 function AuthContext({ children }) {
 	const [state, dispatch] = useReducer(reducer, initState);
 
-
-	
+	async function register({ email, password }) {
+		try {
+			const res = await createUserWithEmailAndPassword(auth, email, password);
+			console.log(res);
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
 	const value = {
 		user: state.user,
+		register,
 	};
 	return <authContext.Provider value={value}>{children}</authContext.Provider>;
 }
