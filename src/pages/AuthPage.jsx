@@ -36,16 +36,21 @@ const theme = createTheme();
 
 export default function AuthPage() {
 	const [isLogin, setIsLogin] = useState(true);
-	const { register } = useAuthContext();
+	const { register, login } = useAuthContext();
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
 
-		console.log({
+		const credentials = {
 			email: data.get("email"),
 			password: data.get("password"),
-		});
+		};
+		if (isLogin) {
+			login(credentials);
+		} else {
+			register(credentials);
+		}
 	};
 
 	return (
