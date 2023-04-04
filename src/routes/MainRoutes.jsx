@@ -7,6 +7,7 @@ import EditProductPage from "../pages/EditProductPage";
 import ProductDetailsPage from "../pages/ProductDetailsPage";
 import CartPage from "../pages/CartPage";
 import SuccessPage from "../pages/SuccessPage";
+import AuthPage from "../pages/AuthPage";
 
 function MainRoutes() {
 	return (
@@ -19,6 +20,7 @@ function MainRoutes() {
 				<Route path="/cart" element={<CartPage />} />
 			</Route>
 
+			<Route path="/auth" element={<AuthPage />} />
 			<Route path="/success" element={<SuccessPage />} />
 		</Routes>
 	);

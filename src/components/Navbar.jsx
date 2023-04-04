@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Badge } from "@mui/material";
 import { useCartContext } from "../contexts/CartContext";
+import { useAuthContext } from "../contexts/AuthContext";
 
 const pages = [
 	{
@@ -31,6 +32,7 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function Navbar() {
 	const { cartLength, getCart } = useCartContext();
+	const { user } = useAuthContext();
 
 	React.useEffect(() => {
 		getCart();
@@ -163,11 +165,19 @@ function Navbar() {
 								<ShoppingCartIcon />
 							</Badge>
 						</IconButton>
-						<Tooltip title="Open settings">
-							<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-								<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-							</IconButton>
-						</Tooltip>
+
+						{user ? (
+							<Tooltip title="Open settings">
+								<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+									<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+								</IconButton>
+							</Tooltip>
+						) : (
+							<Button component={Link} to="/auth" color="inherit">
+								Login
+							</Button>
+						)}
+
 						<Menu
 							sx={{ mt: "45px" }}
 							id="menu-appbar"

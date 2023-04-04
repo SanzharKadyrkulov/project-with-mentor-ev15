@@ -14,6 +14,9 @@ export function notify(msg) {
 		theme: "light",
 	});
 }
+export function notifyError(msg) {
+	return toast.error(msg);
+}
 
 function Toastify() {
 	return (
