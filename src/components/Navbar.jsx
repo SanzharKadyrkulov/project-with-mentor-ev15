@@ -18,21 +18,24 @@ import { Badge } from "@mui/material";
 import { useCartContext } from "../contexts/CartContext";
 import { useAuthContext } from "../contexts/AuthContext";
 
-const pages = [
+let pages = [
 	{
 		title: "Home",
 		link: "/",
 	},
+];
+
+const adminPages = [
 	{
 		title: "Add Product",
 		link: "/add",
 	},
 ];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Profile", "Account", "Dashboard"];
 
 function Navbar() {
 	const { cartLength, getCart } = useCartContext();
-	const { user } = useAuthContext();
+	const { user, logout, isAdmin } = useAuthContext();
 
 	React.useEffect(() => {
 		getCart();
@@ -108,17 +111,29 @@ function Navbar() {
 								display: { xs: "block", md: "none" },
 							}}
 						>
-							{pages.map((page) => (
-								<MenuItem key={page.title} onClick={handleCloseNavMenu}>
-									<Typography
-										component={Link}
-										to={page.link}
-										textAlign="center"
-									>
-										{page.title}
-									</Typography>
-								</MenuItem>
-							))}
+							{isAdmin()
+								? pages.concat(adminPages).map((page) => (
+										<MenuItem key={page.title} onClick={handleCloseNavMenu}>
+											<Typography
+												component={Link}
+												to={page.link}
+												textAlign="center"
+											>
+												{page.title}
+											</Typography>
+										</MenuItem>
+								  ))
+								: pages.map((page) => (
+										<MenuItem key={page.title} onClick={handleCloseNavMenu}>
+											<Typography
+												component={Link}
+												to={page.link}
+												textAlign="center"
+											>
+												{page.title}
+											</Typography>
+										</MenuItem>
+								  ))}
 						</Menu>
 					</Box>
 					<AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -141,17 +156,29 @@ function Navbar() {
 						LOGO
 					</Typography>
 					<Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-						{pages.map((page) => (
-							<Button
-								key={page.title}
-								component={Link}
-								to={page.link}
-								onClick={handleCloseNavMenu}
-								sx={{ my: 2, color: "white", display: "block" }}
-							>
-								{page.title}
-							</Button>
-						))}
+						{isAdmin()
+							? pages.concat(adminPages).map((page) => (
+									<Button
+										key={page.title}
+										component={Link}
+										to={page.link}
+										onClick={handleCloseNavMenu}
+										sx={{ my: 2, color: "white", display: "block" }}
+									>
+										{page.title}
+									</Button>
+							  ))
+							: pages.map((page) => (
+									<Button
+										key={page.title}
+										component={Link}
+										to={page.link}
+										onClick={handleCloseNavMenu}
+										sx={{ my: 2, color: "white", display: "block" }}
+									>
+										{page.title}
+									</Button>
+							  ))}
 					</Box>
 
 					<Box sx={{ flexGrow: 0 }}>
@@ -199,6 +226,14 @@ function Navbar() {
 									<Typography textAlign="center">{setting}</Typography>
 								</MenuItem>
 							))}
+							<MenuItem
+								onClick={() => {
+									handleCloseUserMenu();
+									logout();
+								}}
+							>
+								<Typography textAlign="center">Logout</Typography>
+							</MenuItem>
 						</Menu>
 					</Box>
 				</Toolbar>

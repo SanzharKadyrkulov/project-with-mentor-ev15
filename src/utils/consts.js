@@ -10,3 +10,5 @@ export const ACTIONS = {
 };
 
 export const LIMIT = 6;
+
+export const ADMINS = ["admin@gmail.com"];

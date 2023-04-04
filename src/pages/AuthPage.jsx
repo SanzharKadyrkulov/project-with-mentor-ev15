@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useAuthContext } from "../contexts/AuthContext";
+import { Navigate } from "react-router-dom";
 
 function Copyright(props) {
 	return (
@@ -36,7 +37,9 @@ const theme = createTheme();
 
 export default function AuthPage() {
 	const [isLogin, setIsLogin] = useState(true);
-	const { register, login } = useAuthContext();
+	const [showPass, setShowPass] = useState(false);
+
+	const { register, login, user } = useAuthContext();
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -52,6 +55,10 @@ export default function AuthPage() {
 			register(credentials);
 		}
 	};
+
+	if (user) {
+		return <Navigate replace to="/" />;
+	}
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -93,10 +100,22 @@ export default function AuthPage() {
 							fullWidth
 							name="password"
 							label="Password"
-							type="password"
+							type={showPass ? "text" : "password"}
 							id="password"
 							autoComplete="current-password"
 						/>
+
+						<FormControlLabel
+							control={
+								<Checkbox
+									onChange={(e) => setShowPass(e.target.checked)}
+									checked={showPass}
+									color="primary"
+								/>
+							}
+							label="Show password"
+						/>
+
 						<Button
 							type="submit"
 							fullWidth

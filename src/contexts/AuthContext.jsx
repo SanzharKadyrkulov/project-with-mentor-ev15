@@ -1,10 +1,12 @@
-import React, { createContext, useReducer } from "react";
-import { ACTIONS } from "../utils/consts";
+import React, { createContext, useEffect, useReducer } from "react";
+import { ACTIONS, ADMINS } from "../utils/consts";
 import { useContext } from "react";
 import { auth } from "../firebase";
 import {
 	createUserWithEmailAndPassword,
+	onAuthStateChanged,
 	signInWithEmailAndPassword,
+	signOut,
 } from "firebase/auth";
 import { notifyError } from "../components/Toastify";
 
@@ -33,8 +35,7 @@ function AuthContext({ children }) {
 
 	async function register({ email, password }) {
 		try {
-			const res = await createUserWithEmailAndPassword(auth, email, password);
-			console.log(res);
+			await createUserWithEmailAndPassword(auth, email, password);
 		} catch (error) {
 			notifyError(error.code);
 		}
@@ -42,19 +43,42 @@ function AuthContext({ children }) {
 
 	async function login({ email, password }) {
 		try {
-			const res = await signInWithEmailAndPassword(auth, email, password);
-			console.log(res);
+			await signInWithEmailAndPassword(auth, email, password);
 		} catch (error) {
 			notifyError(error.code);
 		}
 	}
 
-	
+	async function logout() {
+		try {
+			await signOut(auth);
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	useEffect(() => {
+		onAuthStateChanged(auth, (user) => {
+			dispatch({
+				type: ACTIONS.user,
+				payload: user,
+			});
+		});
+	}, []);
+
+	function isAdmin() {
+		if (state.user) {
+			const bool = ADMINS.includes(state.user.email);
+			return bool;
+		}
+	}
 
 	const value = {
 		user: state.user,
 		register,
 		login,
+		logout,
+		isAdmin,
 	};
 	return <authContext.Provider value={value}>{children}</authContext.Provider>;
 }

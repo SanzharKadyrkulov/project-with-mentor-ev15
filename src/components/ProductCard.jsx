@@ -14,11 +14,13 @@ import { Link } from "react-router-dom";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import RemoveShoppingCartOutlinedIcon from "@mui/icons-material/RemoveShoppingCartOutlined";
 import { useCartContext } from "../contexts/CartContext";
+import { useAuthContext } from "../contexts/AuthContext";
 
 function ProductCard({ item }) {
 	const { deleteProduct } = useProductContext();
 	const { addProductToCart, deleteProductFromCart, isAlreadyInCart } =
 		useCartContext();
+	const { isAdmin } = useAuthContext();
 
 	return (
 		<Grid item md={4} sm={6} xs={12}>
@@ -38,22 +40,26 @@ function ProductCard({ item }) {
 					</Typography>
 				</CardContent>
 				<CardActions>
-					<Button
-						onClick={() => deleteProduct(item.id)}
-						color="error"
-						size="small"
-					>
-						Delete
-					</Button>
+					{isAdmin() ? (
+						<>
+							<Button
+								onClick={() => deleteProduct(item.id)}
+								color="error"
+								size="small"
+							>
+								Delete
+							</Button>
+							<Button
+								component={Link}
+								to={`/edit/${item.id}`}
+								color="warning"
+								size="small"
+							>
+								Edit
+							</Button>
+						</>
+					) : null}
 
-					<Button
-						component={Link}
-						to={`/edit/${item.id}`}
-						color="warning"
-						size="small"
-					>
-						Edit
-					</Button>
 					<Button component={Link} to={`/details/${item.id}`} size="small">
 						Learn More
 					</Button>
