@@ -37,7 +37,10 @@ function AuthContext({ children }) {
 	async function register({ email, password, displayName, photoURL }) {
 		try {
 			await createUserWithEmailAndPassword(auth, email, password);
-			await updateProfile(auth.currentUser)
+			await updateProfile(auth.currentUser, {
+				displayName,
+				photoURL,
+			});
 		} catch (error) {
 			notifyError(error.code);
 		}
@@ -61,6 +64,7 @@ function AuthContext({ children }) {
 
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
+			console.log(user);
 			dispatch({
 				type: ACTIONS.user,
 				payload: user,
