@@ -48,6 +48,8 @@ export default function AuthPage() {
 		const credentials = {
 			email: data.get("email"),
 			password: data.get("password"),
+			displayName: data.get("displayName"),
+			photoURL: data.get("photoURL"),
 		};
 		if (isLogin) {
 			login(credentials);
@@ -84,6 +86,28 @@ export default function AuthPage() {
 						noValidate
 						sx={{ mt: 1 }}
 					>
+						{!isLogin ? (
+							<>
+								<TextField
+									margin="normal"
+									required
+									fullWidth
+									id="name"
+									label="Name"
+									name="displayName"
+									autoFocus
+								/>
+								<TextField
+									margin="normal"
+									required
+									fullWidth
+									id="photo"
+									label="Photo"
+									name="photoURL"
+								/>
+							</>
+						) : null}
+
 						<TextField
 							margin="normal"
 							required

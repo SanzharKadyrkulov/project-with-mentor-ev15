@@ -7,6 +7,7 @@ import {
 	onAuthStateChanged,
 	signInWithEmailAndPassword,
 	signOut,
+	updateProfile,
 } from "firebase/auth";
 import { notifyError } from "../components/Toastify";
 
@@ -33,9 +34,10 @@ function reducer(state, action) {
 function AuthContext({ children }) {
 	const [state, dispatch] = useReducer(reducer, initState);
 
-	async function register({ email, password }) {
+	async function register({ email, password, displayName, photoURL }) {
 		try {
 			await createUserWithEmailAndPassword(auth, email, password);
+			await updateProfile(auth.currentUser)
 		} catch (error) {
 			notifyError(error.code);
 		}
