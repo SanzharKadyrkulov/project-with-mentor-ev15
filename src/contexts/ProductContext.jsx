@@ -34,7 +34,7 @@ function ProductContext({ children }) {
 	async function getProducts() {
 		try {
 			const res = await axios.get(
-				`${API}${window.location.search || "?_limit=" + LIMIT}`
+				`${API}${window.location.search || `?_limit=${LIMIT}`}`
 			);
 			const totalPages = Math.ceil(res.headers["x-total-count"] / LIMIT);
 

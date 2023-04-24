@@ -1,4 +1,4 @@
-export const API = "http://localhost:8000/products";
+export const API = "https://jsev15-db.vercel.app/products";
 
 export const ACTIONS = {
 	products: "products",

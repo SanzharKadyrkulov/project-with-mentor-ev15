@@ -14,6 +14,10 @@ export default function CartPage() {
 	const { cart, plusCount, minusCount, deleteProductFromCart } =
 		useCartContext();
 
+	if (cart.products.length < 1) {
+		return <h1>Cart is empty</h1>;
+	}
+
 	return (
 		<TableContainer sx={{ padding: "10px" }} component={Paper}>
 			<Table sx={{ minWidth: 650 }} aria-label="simple table">
