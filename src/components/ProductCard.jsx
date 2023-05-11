@@ -27,7 +27,7 @@ function ProductCard({ item }) {
 			<Card>
 				<CardMedia
 					component="img"
-					alt="green iguana"
+					alt={item.title}
 					height="300"
 					image={item.image}
 				/>
